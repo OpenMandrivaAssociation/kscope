@@ -44,10 +44,11 @@ install -D -m 644 %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png %{buil
 install -D -m 644 %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png %{buildroot}%{_iconsdir}/%{name}.png
 install -D -m 644 %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png %{buildroot}%{_miconsdir}/%{name}.png
 
+mkdir -p %{buildroot}%{_datadir}/applications
 desktop-file-install --vendor='' \
 	--dir %{buildroot}%{_datadir}/applications/ \
 	--add-category='TextEditor' \
-	%{_datadir}/applnk/Development/kscope.desktop
+	%{buildroot}%{_datadir}/applnk/Development/kscope.desktop
 
 rm -f %{_datadir}/applnk/Development/kscope.desktop
 
