@@ -50,7 +50,7 @@ desktop-file-install --vendor='' \
 	--add-category='TextEditor' \
 	%{buildroot}%{_datadir}/applnk/Development/kscope.desktop
 
-rm -f %{_datadir}/applnk/Development/kscope.desktop
+rm -f %{buildroot}%{_datadir}/applnk/Development/kscope.desktop
 
 %find_lang %{name}
 
