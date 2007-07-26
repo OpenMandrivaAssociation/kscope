@@ -1,5 +1,5 @@
 %define name    kscope
-%define version 1.4.2
+%define version 1.6.0
 %define release %mkrel 1
 %define Summary KDE frontend to Cscope
 
@@ -18,9 +18,9 @@ License: 	BSD
 Group: 		Development/Other
 Packager:       Mandriva Linux KDE Team <kde@mandriva.com>
 Source: 	http://ovh.dl.sourceforge.net/sourceforge/kscope/%name-%version.tar.bz2
-Url: 		http://sourceforge.net/projects/kscope.
+Url: 		http://sourceforge.net/projects/kscope
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:	kdebase-devel libkdebase-kate-devel
+BuildRequires:	kdebase-devel
 BuildRequires:  libgraphviz-devel
 BuildRequires:  flex bison
 Requires:	cscope ctags
@@ -40,11 +40,6 @@ make clean
 rm -rf %buildroot
 %makeinstall
 
-# Menu
-install -d $RPM_BUILD_ROOT%{_menudir}
-kdedesktop2mdkmenu.pl %{name} "%{section}" $RPM_BUILD_ROOT%{_datadir}/applnk/Development/kscope.desktop $RPM_BUILD_ROOT%{_menudir}/%{name}
-
-
 #mdk icons
 install -D -m 644 %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png %{buildroot}%{_liconsdir}/%{name}.png
 install -D -m 644 %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png %{buildroot}%{_iconsdir}/%{name}.png
@@ -62,10 +57,8 @@ rm -rf %buildroot
 %clean_menus
 
 %files -f %{name}.lang
-%defattr(0755,root,root,0755)
+%defattr(-,root,root)
 %{_bindir}/%{name}
-%defattr(0644,root,root,0755)
-%{_menudir}/%{name}
 
 %dir %{_datadir}/apps/kscope/
 %{_datadir}/apps/kscope/kscopeui.rc
@@ -77,5 +70,3 @@ rm -rf %buildroot
 %{_liconsdir}/%{name}.png
 %doc %_docdir/HTML/*/%{name}/*
 %_datadir/apps/kscope/kscope_config
-
-
