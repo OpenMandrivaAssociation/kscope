@@ -13,7 +13,6 @@ Summary:        %Summary
 Name:           %name
 Version:        %version
 Release:        %release
-
 License: 	BSD
 Group: 		Development/Other
 Packager:       Mandriva Linux KDE Team <kde@mandriva.com>
@@ -45,6 +44,13 @@ install -D -m 644 %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png %{buil
 install -D -m 644 %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png %{buildroot}%{_iconsdir}/%{name}.png
 install -D -m 644 %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png %{buildroot}%{_miconsdir}/%{name}.png
 
+desktop-file-install --vendor='' \
+	--dir %{buildroot}%{_datadir}/applications/ \
+	--add-category='TextEditor' \
+	%{_datadir}/applnk/Development/kscope.desktop
+
+rm -f %{_datadir}/applnk/Development/kscope.desktop
+
 %find_lang %{name}
 
 %clean
@@ -63,7 +69,7 @@ rm -rf %buildroot
 %dir %{_datadir}/apps/kscope/
 %{_datadir}/apps/kscope/kscopeui.rc
 %{_datadir}/apps/kscope/pics/*.png
-%{_datadir}/applnk/Development/kscope.desktop
+%{_datadir}/applications/kscope.desktop
 %{_datadir}/icons/*/*/apps/*.png
 %{_miconsdir}/%{name}.png
 %{_iconsdir}/%{name}.png
