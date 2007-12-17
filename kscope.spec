@@ -18,7 +18,6 @@ Group: 		Development/Other
 Packager:       Mandriva Linux KDE Team <kde@mandriva.com>
 Source: 	http://ovh.dl.sourceforge.net/sourceforge/kscope/%name-%version.tar.bz2
 Url: 		http://sourceforge.net/projects/kscope
-BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	kdebase-devel
 BuildRequires:  libgraphviz-devel
 BuildRequires:  flex bison
