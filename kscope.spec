@@ -15,7 +15,6 @@ Version:        %version
 Release:        %release
 License: 	BSD
 Group: 		Development/Other
-Packager:       Mandriva Linux KDE Team <kde@mandriva.com>
 Source: 	http://ovh.dl.sourceforge.net/sourceforge/kscope/%name-%version.tar.gz
 Url: 		http://sourceforge.net/projects/kscope
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -45,12 +44,10 @@ install -D -m 644 %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png %{buil
 install -D -m 644 %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png %{buildroot}%{_miconsdir}/%{name}.png
 
 mkdir -p %{buildroot}%{_datadir}/applications
-desktop-file-install --vendor='' \
+desktop-file-install --vendor='' --delete-original \
 	--dir %{buildroot}%{_datadir}/applications/ \
 	--add-category='TextEditor' \
 	%{buildroot}%{_datadir}/applnk/Development/kscope.desktop
-
-rm -f %{buildroot}%{_datadir}/applnk/Development/kscope.desktop
 
 %find_lang %{name} --with-html
 
