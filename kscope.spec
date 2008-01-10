@@ -1,5 +1,5 @@
 %define name    kscope
-%define version 1.6.0
+%define version 1.6.1
 %define release %mkrel 1
 %define Summary KDE frontend to Cscope
 
@@ -16,7 +16,7 @@ Release:        %release
 License: 	BSD
 Group: 		Development/Other
 Packager:       Mandriva Linux KDE Team <kde@mandriva.com>
-Source: 	http://ovh.dl.sourceforge.net/sourceforge/kscope/%name-%version.tar.bz2
+Source: 	http://ovh.dl.sourceforge.net/sourceforge/kscope/%name-%version.tar.gz
 Url: 		http://sourceforge.net/projects/kscope
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	kdebase-devel
@@ -31,7 +31,7 @@ KScope is a source-editing environment for KDE based on Cscope.
 %setup -q
 
 %build
-%configure
+%configure2_5x
 make clean
 %make
 
@@ -52,7 +52,7 @@ desktop-file-install --vendor='' \
 
 rm -f %{buildroot}%{_datadir}/applnk/Development/kscope.desktop
 
-%find_lang %{name}
+%find_lang %{name} --with-html
 
 %clean
 rm -rf %buildroot
@@ -66,7 +66,6 @@ rm -rf %buildroot
 %files -f %{name}.lang
 %defattr(-,root,root)
 %{_bindir}/%{name}
-
 %dir %{_datadir}/apps/kscope/
 %{_datadir}/apps/kscope/kscopeui.rc
 %{_datadir}/apps/kscope/pics/*.png
@@ -75,5 +74,4 @@ rm -rf %buildroot
 %{_miconsdir}/%{name}.png
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
-%doc %_docdir/HTML/*/%{name}/*
 %_datadir/apps/kscope/kscope_config
