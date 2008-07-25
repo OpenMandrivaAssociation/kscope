@@ -1,6 +1,6 @@
 %define name    kscope
 %define version 1.6.1
-%define release %mkrel 1
+%define release %mkrel 3
 %define Summary KDE frontend to Cscope
 
 %define section Applications/Development/Tools
