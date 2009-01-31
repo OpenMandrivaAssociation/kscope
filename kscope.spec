@@ -1,46 +1,49 @@
 %define name    kscope
-%define version 1.6.2
+%define version 1.9.1
 %define release %mkrel 1
-%define Summary KDE frontend to Cscope
-
-# Work around for different libtool use in kde 
-%define __libtoolize true
+%define Summary Qt frontend to Cscope
 
 Summary:        %Summary
 Name:           %name
 Version:        %version
 Release:        %release
-License: 	BSD
+License: 	GPLv2+
 Group: 		Development/Other
 Source: 	http://ovh.dl.sourceforge.net/sourceforge/kscope/%name-%version.tar.gz
+Source1:	kscope.desktop
+Patch0:		kscope-1.9.0-compilefix.patch
 Url: 		http://sourceforge.net/projects/kscope
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:	kdebase3-devel
-BuildRequires:  libgraphviz-devel
-BuildRequires:  flex bison
-Requires:	cscope ctags
+BuildRequires:	qt4-devel qscintilla-qt4-devel
+BuildRequires:	desktop-file-utils
+Requires:	cscope ctags graphviz
 
 %description
 KScope is a source-editing environment for KDE based on Cscope.
 
 %prep
 %setup -q
+%patch0 -p1
+sed -i 's|/usr/local|%{buildroot}%{_prefix}|g' config
+for i in app/app.pro core/core.pro cscope/cscope.pro; do
+	sed -i 's|/lib|/%{_lib}|g' $i
+done
 
 %build
-%configure_kde3
-%make
+export CXXFLAGS="%{optflags} -I%{qt4include}/Qsci"
+%qmake_qt4
+make
 
 %install
 rm -rf %buildroot
 %makeinstall_std
 
-mkdir -p %{buildroot}%{_kde3_datadir}/applications
-desktop-file-install --vendor='' --delete-original \
-	--dir %{buildroot}%{_kde3_datadir}/applications/ \
-	--add-category='TextEditor' \
-	%{buildroot}%{_kde3_datadir}/applnk/Development/kscope.desktop
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+install -p app/images/kscope.png %{buildroot}%{_datadir}/pixmaps
+mkdir -p %{buildroot}%{_datadir}/applications
+desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 
-%find_lang %{name} --with-html
+rm -f %{buildroot}%{_libdir}/*.so
 
 %clean
 rm -rf %buildroot
@@ -55,9 +58,9 @@ rm -rf %buildroot
 %clean_menus
 %endif
 
-%files -f %{name}.lang
+%files
 %defattr(-,root,root)
-%{_kde3_bindir}/%{name}
-%{_kde3_appsdir}/%{name}
-%{_kde3_datadir}/applications/kscope.desktop
-%{_kde3_iconsdir}/*/*/apps/*.png
+%{_bindir}/*
+%{_libdir}/*.so.*
+%{_datadir}/applications/kscope.desktop
+%{_datadir}/pixmaps/kscope.png
