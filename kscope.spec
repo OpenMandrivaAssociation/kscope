@@ -1,5 +1,5 @@
 %define name    kscope
-%define version 1.9.1
+%define version 1.9.2
 %define release %mkrel 1
 %define Summary Qt frontend to Cscope
 
@@ -25,7 +25,7 @@ KScope is a source-editing environment for KDE based on Cscope.
 %setup -q
 %patch0 -p1
 sed -i 's|/usr/local|%{buildroot}%{_prefix}|g' config
-for i in app/app.pro core/core.pro cscope/cscope.pro; do
+for i in */*.pro; do
 	sed -i 's|/lib|/%{_lib}|g' $i
 done
 
