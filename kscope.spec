@@ -1,6 +1,6 @@
 %define name    kscope
 %define version 1.9.2
-%define release %mkrel 1
+%define release %mkrel 2
 %define Summary Qt frontend to Cscope
 
 Summary:        %Summary
