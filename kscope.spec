@@ -1,17 +1,12 @@
-%define name    kscope
-%define version 1.9.2
-%define release %mkrel 2
-%define Summary Qt frontend to Cscope
-
-Summary:        %Summary
-Name:           %name
-Version:        %version
-Release:        %release
+Summary:        Qt frontend to Cscope
+Name:           kscope
+Version:        1.9.4
+Release:        %mkrel 1
 License: 	GPLv2+
 Group: 		Development/Other
 Source: 	http://ovh.dl.sourceforge.net/sourceforge/kscope/%name-%version.tar.gz
 Source1:	kscope.desktop
-Patch0:		kscope-1.9.0-compilefix.patch
+Patch0:		kscope-1.9.4-compilefix.patch
 Url: 		http://sourceforge.net/projects/kscope
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	qt4-devel qscintilla-qt4-devel
@@ -23,7 +18,7 @@ KScope is a source-editing environment for KDE based on Cscope.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch0 -p0
 sed -i 's|/usr/local|%{buildroot}%{_prefix}|g' config
 for i in */*.pro; do
 	sed -i 's|/lib|/%{_lib}|g' $i
@@ -47,16 +42,6 @@ rm -f %{buildroot}%{_libdir}/*.so
 
 %clean
 rm -rf %buildroot
-
-%if %mdkversion < 200900
-%post
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%endif
 
 %files
 %defattr(-,root,root)
