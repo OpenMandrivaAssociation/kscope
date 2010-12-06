@@ -1,7 +1,7 @@
 Summary:        Qt frontend to Cscope
 Name:           kscope
 Version:        1.9.4
-Release:        %mkrel 1
+Release:        %mkrel 2
 License: 	GPLv2+
 Group: 		Development/Other
 Source: 	http://ovh.dl.sourceforge.net/sourceforge/kscope/%name-%version.tar.gz
