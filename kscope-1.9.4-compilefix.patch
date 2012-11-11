@@ -1,0 +1,13 @@
+Index: core/locationlistmodel.cpp
+===================================================================
+--- core/locationlistmodel.cpp
++++ core/locationlistmodel.cpp	2010-04-05 22:07:27.000000000 +0200
+@@ -207,7 +207,7 @@
+ 	if (row < 0 || row >= locList_.size())
+ 		return QModelIndex();
+ 
+-	return createIndex(row, column);
++	return createIndex(row, column, (int)NULL);
+ }
+ 
+ /**
