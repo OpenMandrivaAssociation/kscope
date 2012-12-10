@@ -1,17 +1,22 @@
+%define debug_package %{nil}
+
 Summary:        Qt frontend to Cscope
 Name:           kscope
 Version:        1.9.4
-Release:        %mkrel 2
+Release:        2
 License: 	GPLv2+
 Group: 		Development/Other
 Source: 	http://ovh.dl.sourceforge.net/sourceforge/kscope/%name-%version.tar.gz
 Source1:	kscope.desktop
 Patch0:		kscope-1.9.4-compilefix.patch
+Patch1:		kscope-1.9.4-linking.patch
 Url: 		http://sourceforge.net/projects/kscope
-BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:	qt4-devel qscintilla-qt4-devel
+BuildRequires:	qt4-devel
+BuildRequires:	qscintilla-qt4-devel
 BuildRequires:	desktop-file-utils
-Requires:	cscope ctags graphviz
+Requires:	cscope 
+Requires:	ctags 
+Requires:	graphviz
 
 %description
 KScope is a source-editing environment for KDE based on Cscope.
@@ -19,6 +24,8 @@ KScope is a source-editing environment for KDE based on Cscope.
 %prep
 %setup -q
 %patch0 -p0
+%patch1 -p0
+
 sed -i 's|/usr/local|%{buildroot}%{_prefix}|g' config
 for i in */*.pro; do
 	sed -i 's|/lib|/%{_lib}|g' $i
@@ -30,7 +37,6 @@ export CXXFLAGS="%{optflags} -I%{qt4include}/Qsci"
 make
 
 %install
-rm -rf %buildroot
 %makeinstall_std
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps
@@ -40,12 +46,11 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 
 rm -f %{buildroot}%{_libdir}/*.so
 
-%clean
-rm -rf %buildroot
 
 %files
-%defattr(-,root,root)
 %{_bindir}/*
 %{_libdir}/*.so.*
 %{_datadir}/applications/kscope.desktop
 %{_datadir}/pixmaps/kscope.png
+
+
