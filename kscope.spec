@@ -11,6 +11,7 @@ Source1:	kscope.desktop
 Patch0:		kscope-1.9.4-compilefix.patch
 Patch1:		kscope-1.9.4-linking.patch
 Url: 		https://sourceforge.net/projects/kscope
+BuildRequires:	make
 BuildRequires:	qt4-devel
 BuildRequires:	qscintilla-qt4-devel
 BuildRequires:	desktop-file-utils
